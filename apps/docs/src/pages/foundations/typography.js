@@ -4,11 +4,12 @@ import { TokenTable } from '../../components/TokenTable.js';
 import { CodeBlock } from '../../components/CodeBlock.js';
 import { tokens } from '@ru/tokens';
 
-const sizes = Object.entries(tokens.font.size).map(([k, v]) => ({
-  name: `font.size.${k}`, value: v, css: `--font-size-${k}`, dtcg: `font.size.${k}`,
+const f = tokens.ru.font;
+const sizes = Object.entries(f.size).map(([k, v]) => ({
+  name: `ru.font.size.${k}`, value: v, css: `--ru-font-size-${k}`, dtcg: `ru.font.size.${k}`,
 }));
-const weights = Object.entries(tokens.font.weight).map(([k, v]) => ({
-  name: `font.weight.${k}`, value: v, css: `--font-weight-${k}`, dtcg: `font.weight.${k}`,
+const weights = Object.entries(f.weight).map(([k, v]) => ({
+  name: `ru.font.weight.${k}`, value: v, css: `--ru-font-weight-${k}`, dtcg: `ru.font.weight.${k}`,
 }));
 
 export const typographyPage = {
@@ -17,33 +18,23 @@ export const typographyPage = {
     root.append(
       PageHeader({
         eyebrow: 'Foundations', title: 'Tipografia',
-        lede: 'Trebuchet MS (Vincent Connare, Microsoft, 1996) é a fonte oficial. Versalete é usado em assinaturas institucionais por extenso.',
+        lede: 'UI digital usa Geist Variable. Trebuchet MS é mantida apenas como referência para arte RU legada (peças impressas históricas).',
         status: 'stable',
       }),
 
       h('section', {},
-        h('h2', {}, 'Família'),
-        h('p', {}, 'Stack do sistema: ', h('code', {}, tokens.font.family.sans)),
-        h('div', { style: { fontFamily: tokens.font.family.sans, fontSize: '48px', lineHeight: 1.1, color: 'var(--color-text-default)' } },
-          'Aa Bb Cc — UFPE'),
+        h('h2', {}, 'Família UI — Geist Variable'),
+        h('p', {}, h('code', {}, f.family.ui)),
+        h('div', { style: { fontFamily: f.family.ui, fontSize: '48px', lineHeight: 1.1, fontWeight: 600 } },
+          'RU UFPE · Aa Bb Cc 123'),
       ),
 
       h('section', {},
-        h('h2', {}, 'Variantes'),
-        h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-3)' } },
-          h('div', {}, h('h3', {}, 'Normal'), h('p', {}, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789')),
-          h('div', {}, h('h3', {}, 'Negrito'), h('p', { style: { fontWeight: 700 } }, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz')),
-          h('div', {}, h('h3', {}, 'Itálico'), h('p', { style: { fontStyle: 'italic' } }, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz')),
-          h('div', {}, h('h3', {}, 'Negrito + itálico'), h('p', { style: { fontWeight: 700, fontStyle: 'italic' } }, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz')),
-        ),
-      ),
-
-      h('section', {},
-        h('h2', {}, 'Versalete'),
-        h('p', {}, 'Letras minúsculas representadas pelo desenho das maiúsculas em tamanho reduzido. Usado no nome ',
-          h('em', {}, 'Universidade Federal de Pernambuco'), ' nas assinaturas institucionais.'),
-        h('p', { class: 'versalete', style: { fontSize: '32px', fontWeight: 700 } },
-          'Universidade Federal de Pernambuco'),
+        h('h2', {}, 'Arte legada — Trebuchet MS'),
+        h('div', { class: 'callout' },
+          h('p', { html: '<code>--ru-font-family-legacy-artwork</code> existe apenas para documentar peças impressas RU antigas. A UI digital nunca deve usar essa família.' })),
+        h('div', { style: { fontFamily: f.family.legacyArtwork, fontSize: '32px', color: 'var(--ru-color-text-muted)' } },
+          'Trebuchet MS — Aa Bb Cc'),
       ),
 
       h('section', {}, h('h2', {}, 'Tamanhos'), TokenTable({ rows: sizes })),
@@ -51,14 +42,7 @@ export const typographyPage = {
 
       h('section', {},
         h('h2', {}, 'Uso'),
-        CodeBlock({ language: 'css', code: '.titulo {\n  font-family: var(--font-family-sans);\n  font-weight: var(--font-weight-bold);\n  font-size: var(--font-size-xl);\n}\n\n.nome-instituicao {\n  font-variant-caps: small-caps;\n  text-transform: lowercase;\n  letter-spacing: 0.04em;\n}' }),
-      ),
-
-      h('section', {},
-        h('h2', {}, 'Limitação cross-OS'),
-        h('div', { class: 'callout' },
-          h('p', {}, 'Trebuchet MS está presente em macOS e Windows mas pode não estar instalada em Linux. O fallback garante render consistente, com perda de fidelidade visual.'),
-          h('p', {}, 'Para impressos oficiais, use o aplicativo de origem com a fonte instalada.')),
+        CodeBlock({ language: 'css', code: '.titulo {\n  font-family: var(--ru-font-family-ui);\n  font-weight: var(--ru-font-weight-semibold);\n  font-size: var(--ru-font-size-3xl);\n  line-height: var(--ru-line-height-tight);\n}' }),
       ),
     );
   },
