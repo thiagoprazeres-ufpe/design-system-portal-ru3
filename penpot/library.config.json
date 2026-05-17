@@ -1,0 +1,10 @@
+{
+  "team": "UFPE",
+  "project": "STI UFPE Design System",
+  "files": {
+    "00-foundations": { "name": "STI UFPE / Foundations", "shared": true },
+    "01-marca":       { "name": "STI UFPE / Marca", "shared": true, "linkedLibraries": ["00-foundations"] },
+    "02-avatares":    { "name": "STI UFPE / Avatares", "shared": true, "linkedLibraries": ["00-foundations", "01-marca"] },
+    "03-aplicacoes":  { "name": "STI UFPE / Aplicações", "shared": true, "linkedLibraries": ["00-foundations", "01-marca"] }
+  }
+}

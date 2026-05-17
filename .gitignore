@@ -1,0 +1,9 @@
+.DS_Store
+node_modules/
+dist/
+*.log
+.env*
+
+penpot/file-ids.json
+packages/tokens/src/
+apps/docs/src/build-info.js

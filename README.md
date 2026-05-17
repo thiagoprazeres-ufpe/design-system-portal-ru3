@@ -1,93 +1,163 @@
-# Design System Portal RU3
+# UFPE Design System
 
+**Penpot é a implementação.** Este repositório hospeda:
 
+- **Tokens** canônicos em [W3C DTCG](https://design-tokens.github.io/community-group/format/) (`packages/tokens/dtcg/`).
+- **Plugin Penpot** para sincronizar tokens bidirecionalmente (`packages/penpot-plugin/`).
+- **Portal de docs** estilo zeroheight (`apps/docs/`) consumindo tokens e referenciando a library Penpot.
+- **Scripts CI** para publicar libraries Penpot, snapshots `.penpot` e releases (`penpot/scripts/`).
 
-## Getting started
+> O uso da identidade visual da UFPE é exclusivo para membros da instituição.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+---
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Stack
 
-## Add your files
+| Camada | Tecnologia |
+|---|---|
+| Implementação visual | [Penpot](https://design.penpot.app) (Shared Libraries + Components + Variants + Design Tokens nativos) |
+| Tokens canônicos | W3C DTCG (JSON) |
+| Build de tokens | Script vanilla (`packages/tokens/build.js`) → CSS / JS / TS / Penpot JSON |
+| Sincronização | `@ufpe/penpot-plugin` (push/pull) |
+| Portal de docs | Vite + `@preact/signals-core` |
+| CI / Releases | GitHub Actions + Cloudflare Pages |
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+## Estrutura (monorepo pnpm)
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.ufpe.br/thiago.prazeres/design-system-portal-ru3.git
-git branch -M master
-git push -uf origin master
+ufpe-design-system/
+├── packages/
+│   ├── tokens/          # W3C DTCG canônico + builds derivados
+│   └── penpot-plugin/   # plugin de sincronização
+├── apps/
+│   └── docs/            # portal zeroheight-style
+├── penpot/
+│   ├── files/           # snapshots .penpot (CI nightly)
+│   ├── library.config.json
+│   ├── rpc.js
+│   └── scripts/         # export-snapshot, publish-library, verify-drift
+├── public/brasoes/      # kit oficial UFPE (sigla + extenso)
+├── .github/workflows/   # tokens-build, penpot-sync, penpot-snapshot, release, docs-deploy
+└── ROADMAP.md
 ```
 
-## Integrate with your tools
+## Início rápido
 
-- [ ] [Set up project integrations](https://gitlab.ufpe.br/thiago.prazeres/design-system-portal-ru3/-/settings/integrations)
+```bash
+# Setup
+corepack enable && corepack prepare pnpm@9 --activate
+pnpm install
 
-## Collaborate with your team
+# Tokens
+pnpm tokens:build                    # gera CSS/JS/TS/Penpot JSON
+cat packages/tokens/src/tokens.css
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+# Docs
+pnpm dev                             # localhost:5173
 
-## Test and Deploy
+# Plugin Penpot
+pnpm dev:plugin                      # localhost:5174
+# instale no Penpot: Menu → Plugins → Add → http://localhost:5174/manifest.json
 
-Use the built-in continuous integration in GitLab.
+# Penpot CI (requer PENPOT_TOKEN)
+pnpm penpot:snapshot                 # exporta .penpot dos files configurados
+pnpm penpot:publish                  # marca shared + link-file-to-library
+pnpm penpot:verify                   # checa drift entre git e Penpot
+```
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+## Brasão
 
-***
+Kit oficial em `public/brasoes/`:
 
-# Editing this README
+```
+public/brasoes/
+├── sigla/   sigla-rgb.{svg,pdf,ai,eps,png,jpg} + sigla-{preto,branco}.png
+└── extenso/ extenso-rgb.{svg,pdf,ai,eps,png,jpg} + extenso-{preto,branco}.png
+```
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+SVG é gerado dos PDFs vetoriais via `pdftocairo` (script `scripts/build-svgs.sh`). Para baixar versões individuais, use o portal: `/#resources`.
 
-## Suggestions for a good README
+## Tokens — consumo
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+### Via npm (workspace)
 
-## Name
-Choose a self-explaining name for your project.
+```js
+import { tokens } from '@ufpe/tokens';
+tokens.color.brand.primary;  // '#990000'
+tokens.mark.ratio.height;    // 1.5
+```
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+### Via CSS
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+```css
+@import '@ufpe/tokens/css';
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+.botao {
+  background: var(--color-brand-primary);
+  color: var(--color-brand-contrast);
+  font-family: var(--font-family-sans);
+  padding: var(--space-2) var(--space-3);
+}
+```
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+### No Penpot
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+`Assets → Libraries → +` → adicionar `UFPE / Foundations`.
+Tokens DTCG sincronizados aparecem em `Design tokens`.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+## Sincronização bidirecional
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+```
+packages/tokens/dtcg/  ── push ──▶  Penpot library
+        ▲                                 │
+        │                                 │
+        └─────── pull (PR) ───────────────┘
+              via @ufpe/penpot-plugin
+```
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+Pipeline:
+- **MR de tokens** (`packages/tokens/dtcg/**`) → CI valida + gera build.
+- **Merge em master** → CI deploya docs + plugin para Cloudflare Pages.
+- **Designer edita no Penpot** → plugin "Pull" → MR no GitLab (v0.9).
+- **Tag `v*`** → release Penpot library publish + `tokens.penpot.json` artifact.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+## Produção
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+| Recurso | URL |
+|---|---|
+| Portal de docs | https://ufpe-design-system.pages.dev |
+| Plugin Penpot (manifest) | https://ufpe-design-system-plugin.pages.dev/manifest.json |
+| Tokens DTCG (raw) | https://ufpe-design-system.pages.dev/tokens.penpot.json _(roadmap)_ |
+| Repo | https://gitlab.ufpe.br/thiago.prazeres/design-system-portal-ru3 |
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+### Cloudflare CI/CD
 
-## License
-For open source projects, say how it is licensed.
+Pipeline GitLab CI (`.gitlab-ci.yml`) builda + deploya em `master` via `wrangler`.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Variáveis necessárias (CI/CD Settings → Variables, marcar **masked** + **protected**):
+- `CLOUDFLARE_API_TOKEN` — token API com permissão `Cloudflare Pages: Edit`. Criar em https://dash.cloudflare.com/profile/api-tokens (template "Edit Cloudflare Pages"). **Rotacionar quando necessário.**
+- `CLOUDFLARE_ACCOUNT_ID` — encontrado no canto direito do dashboard Cloudflare.
+- `PENPOT_API` + `PENPOT_TOKEN` _(opcional, só p/ tags v* fazerem `publish-library`)_.
+
+### Git LFS
+
+PDFs e arquivos `.penpot` são versionados via Git LFS (configurado em `.gitattributes`). Clone com:
+
+```bash
+git lfs install
+git clone https://gitlab.ufpe.br/thiago.prazeres/design-system-portal-ru3.git
+```
+
+## Penpot — caveats
+
+- A REST API (`/api/rpc/command/*`) é marcada como **internal**. Para uso institucional, planeje self-host (v3.0) com versão pinned.
+- Component/variant authoring é **only-editor** — não há autoria headless.
+- Plugin roda em iframe sandboxed dentro do editor; CI não exercita o plugin.
+
+## Licença
+
+Uso restrito a membros da Universidade Federal de Pernambuco, conforme determinado pelo Manual de Identidade Visual da UFPE.
+
+## Contribuir
+
+Veja [ROADMAP.md](./ROADMAP.md). Mudanças que afetam tokens ou componentes da marca requerem aprovação da Diretoria de Comunicação.

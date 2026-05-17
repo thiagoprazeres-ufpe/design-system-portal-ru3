@@ -1,0 +1,78 @@
+import { effect } from '@preact/signals-core';
+import { currentPage } from './signals.js';
+import { pages, groups } from './pages/index.js';
+import buildInfo from './build-info.js';
+
+const app = document.getElementById('app');
+app.className = 'app';
+
+// --- sidebar ---
+const sidebar = document.createElement('aside');
+sidebar.className = 'sidebar';
+sidebar.innerHTML = `
+  <div class="brand">
+    <img src="/marca/brand-light.svg" alt="RU" />
+    <div>
+      <strong>RU · UFPE</strong>
+      <small>Design System</small>
+    </div>
+  </div>`;
+
+const nav = document.createElement('nav');
+sidebar.appendChild(nav);
+
+groups.forEach(({ name, pageIds }) => {
+  const g = document.createElement('div');
+  g.className = 'group';
+  g.textContent = name;
+  nav.appendChild(g);
+  pageIds.forEach(id => {
+    const page = pages[id];
+    const btn = document.createElement('button');
+    btn.textContent = page.label;
+    btn.dataset.id = id;
+    btn.addEventListener('click', () => {
+      currentPage.value = id;
+      location.hash = id;
+    });
+    nav.appendChild(btn);
+  });
+});
+
+// Footer com versão + link GitLab
+const footer = document.createElement('div');
+footer.className = 'sidebar-footer';
+const label = buildInfo.tag || `v${buildInfo.version}`;
+const refUrl = buildInfo.tagUrl || buildInfo.commitUrl;
+footer.innerHTML = `
+  <a href="${refUrl}" target="_blank" rel="noopener" title="Ver no GitLab UFPE">
+    <span class="ver">${label}</span>
+    <span class="sha">${buildInfo.sha}${buildInfo.dirty ? '·dirty' : ''}</span>
+  </a>`;
+sidebar.appendChild(footer);
+
+// --- main ---
+const main = document.createElement('main');
+main.className = 'main';
+app.append(sidebar, main);
+
+// Initial hash routing
+const initial = location.hash.slice(1);
+if (initial && pages[initial]) currentPage.value = initial;
+else currentPage.value = 'overview';
+
+window.addEventListener('hashchange', () => {
+  const id = location.hash.slice(1);
+  if (pages[id]) currentPage.value = id;
+});
+
+effect(() => {
+  const id = currentPage.value;
+  nav.querySelectorAll('button').forEach(b => {
+    b.setAttribute('aria-current', b.dataset.id === id ? 'true' : 'false');
+  });
+  main.innerHTML = '';
+  const page = pages[id];
+  if (page) page.render(main);
+  main.scrollTo?.(0, 0);
+});

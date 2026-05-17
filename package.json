@@ -1,0 +1,21 @@
+{
+  "name": "design-system-portal-ru3",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Design System do Portal RU3 (Restaurante Universitário UFPE) — tokens DTCG canônicos, plugin Penpot e portal de docs.",
+  "license": "SEE LICENSE IN README.md",
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "build": "pnpm -r --filter './packages/*' build && pnpm --filter @ru/docs build",
+    "dev": "pnpm --filter @ru/docs dev",
+    "dev:plugin": "pnpm --filter @ru/penpot-plugin dev",
+    "tokens:build": "pnpm --filter @ru/tokens build",
+    "penpot:snapshot": "node penpot/scripts/export-snapshot.js",
+    "penpot:publish": "node penpot/scripts/publish-library.js",
+    "penpot:verify": "node penpot/scripts/verify-drift.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}
