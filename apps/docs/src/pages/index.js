@@ -5,6 +5,7 @@ import { spacingPage } from './foundations/spacing.js';
 import { logoPage } from './components/logo.js';
 import { ilustracoesPage } from './components/ilustracoes.js';
 import { padroesPage } from './components/padroes.js';
+import { mosaicosPage } from './components/mosaicos.js';
 import { guidelinesIntro } from './guidelines/intro.js';
 import { construcao } from './guidelines/construcao.js';
 import { areaProtecao } from './guidelines/area-protecao.js';
@@ -21,6 +22,7 @@ export const pages = {
   'components/logo': logoPage,
   'components/ilustracoes': ilustracoesPage,
   'components/padroes': padroesPage,
+  'components/mosaicos': mosaicosPage,
   'guidelines/intro': guidelinesIntro,
   'guidelines/construcao': construcao,
   'guidelines/area-protecao': areaProtecao,
@@ -33,7 +35,7 @@ export const pages = {
 export const groups = [
   { name: 'Get started', pageIds: ['overview'] },
   { name: 'Foundations', pageIds: ['foundations/colors', 'foundations/typography', 'foundations/spacing'] },
-  { name: 'Components',  pageIds: ['components/logo', 'components/ilustracoes', 'components/padroes'] },
+  { name: 'Components',  pageIds: ['components/logo', 'components/ilustracoes', 'components/padroes', 'components/mosaicos'] },
   { name: 'Guidelines',  pageIds: ['guidelines/intro', 'guidelines/construcao', 'guidelines/area-protecao', 'guidelines/reducao', 'guidelines/usos-incorretos'] },
   { name: 'Resources',   pageIds: ['resources', 'changelog'] },
 ];
