@@ -6,13 +6,13 @@ export const construcao = {
   render(root) {
     root.append(
       PageHeader({
-        eyebrow: 'Guidelines', title: 'Construção da marca STI',
+        eyebrow: 'Guidelines', title: 'Construção da marca RU',
         lede: 'O lockup oficial mantém proporção fixa entre brasão UFPE, símbolo "STi" e descrição textual.',
       }),
       h('section', {},
         h('h2', {}, 'Versão principal'),
         h('div', { style: { padding: 'var(--space-4)', background: 'var(--color-surface-muted)', borderRadius: '8px', textAlign: 'center' } },
-          h('img', { src: '/marca/sti-rgb.svg', alt: 'Construção STI', style: { maxWidth: '480px' } })),
+          h('img', { src: '/marca/brand-dark.svg', alt: 'Construção RU', style: { maxWidth: '480px' } })),
         h('ul', {},
           h('li', {}, 'Brasão UFPE à esquerda — proporção e cores conforme Manual UFPE.'),
           h('li', {}, 'Símbolo "STi" estilizado à direita do brasão — S e T outline em bordô (#b30638); "i" em laranja (#f7941d).'),

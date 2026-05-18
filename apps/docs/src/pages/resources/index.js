@@ -2,16 +2,24 @@ import { h } from '../../components/h.js';
 import { PageHeader } from '../../components/PageHeader.js';
 import { CodeBlock } from '../../components/CodeBlock.js';
 
-const ROWS = [
-  ['Símbolo', 'colorido', 'logo-sti-colorido'],
-  ['Símbolo', 'preto',    'logo-sti-preto'],
-  ['Símbolo', 'branco',   'logo-sti-branco'],
-  ['Horizontal (c/ brasão UFPE)', 'colorido', 'logo-sti-colorido-horizontal'],
-  ['Horizontal (c/ brasão UFPE)', 'preto',    'logo-sti-preto-horizontal'],
-  ['Horizontal (c/ brasão UFPE)', 'branco',   'logo-sti-branco-horizontal'],
-  ['Horizontal por extenso',      'colorido', 'logo-sti-colorido-horizontal-extenso'],
-  ['Horizontal por extenso',      'preto',    'logo-sti-preto-horizontal-extenso'],
-  ['Horizontal por extenso',      'branco',   'logo-sti-branco-horizontal-extenso'],
+const LOGOS = [
+  ['Horizontal (escuro)',      '/marca/brand-dark.svg'],
+  ['Horizontal (claro)',       '/marca/brand-light.svg'],
+  ['Vertical',                  '/marca/logo-ru-vertical.svg'],
+  ['Institucional UFPE+RU',    '/marca/ru-ufpe.svg'],
+  ['Mono horizontal (claro)',   '/marca/logo-monochrome-horizontal-light.svg'],
+  ['Mono vertical (claro)',     '/marca/logo-monochrome-vertical-light.svg'],
+];
+
+const ILLUSTRATIONS = [
+  ['Frutas',              '/illustrations/frutas.svg'],
+  ['Sobremesas',          '/illustrations/desserts.svg'],
+  ['Talheres e pratos',   '/illustrations/cutlery-plates.svg'],
+];
+
+const PATTERNS = [
+  ['Mosaico canônico',    '/patterns/mosaic.svg'],
+  ['Faixa de marca',      '/patterns/ru-brand-strip.svg'],
 ];
 
 export const resourcesIndex = {
@@ -20,49 +28,56 @@ export const resourcesIndex = {
     root.append(
       PageHeader({
         eyebrow: 'Resources', title: 'Downloads e integrações',
-        lede: 'Marca STI oficial em SVG + PNG, tokens DTCG, biblioteca Penpot e plugin de sincronização.',
+        lede: 'Marca RU em SVG, ilustrações geométricas, padrões mosaico e tokens DTCG canônicos.',
       }),
 
       h('section', {},
-        h('h2', {}, 'Marca STI — kit oficial'),
-        h('table', {},
-          h('thead', {}, h('tr', {},
-            h('th', {}, 'Layout'), h('th', {}, 'Variante'),
-            h('th', {}, 'SVG'),    h('th', {}, 'PNG'))),
-          h('tbody', {}, ...ROWS.map(([layout, variante, name]) =>
-            h('tr', {},
-              h('td', {}, layout),
-              h('td', {}, variante),
-              h('td', {}, h('a', { href: `/marca/${name}.svg`, download: true }, h('code', {}, `${name}.svg`))),
-              h('td', {}, h('a', { href: `/marca/${name}.png`, download: true }, h('code', {}, `${name}.png`))),
-            )
-          )),
-        ),
+        h('h2', {}, 'Logo RU'),
+        h('table', {}, h('thead', {}, h('tr', {}, h('th', {}, 'Variante'), h('th', {}, 'SVG'))),
+          h('tbody', {}, ...LOGOS.map(([n, p]) =>
+            h('tr', {}, h('td', {}, n), h('td', {}, h('a', { href: p, download: true }, h('code', {}, p))))))),
       ),
 
       h('section', {},
-        h('h2', {}, 'Manual STI'),
-        h('p', {}, h('a', { href: '/marca/sti-aplicacoes.pdf', target: '_blank' }, 'sti-aplicacoes.pdf ↗'),
-          ' — Aplicações da Marca STI (14 páginas, versão compactada).'),
+        h('h2', {}, 'Ilustrações'),
+        h('table', {}, h('thead', {}, h('tr', {}, h('th', {}, 'Tema'), h('th', {}, 'SVG'))),
+          h('tbody', {}, ...ILLUSTRATIONS.map(([n, p]) =>
+            h('tr', {}, h('td', {}, n), h('td', {}, h('a', { href: p, download: true }, h('code', {}, p))))))),
+      ),
+
+      h('section', {},
+        h('h2', {}, 'Padrões'),
+        h('table', {}, h('thead', {}, h('tr', {}, h('th', {}, 'Tipo'), h('th', {}, 'SVG'))),
+          h('tbody', {}, ...PATTERNS.map(([n, p]) =>
+            h('tr', {}, h('td', {}, n), h('td', {}, h('a', { href: p, download: true }, h('code', {}, p))))))),
       ),
 
       h('section', {},
         h('h2', {}, 'Design Tokens (W3C DTCG)'),
+        h('p', {}, 'Pacote npm com tokens canônicos:'),
         CodeBlock({ language: 'bash', code: 'pnpm add @ru/tokens' }),
+        h('p', {}, 'Ou via fonte canonical do tema:'),
+        CodeBlock({ language: 'text', code: 'wp-content/themes/ru-ufpe-theme/design-system/tokens/ru.tokens.json' }),
       ),
 
       h('section', {},
         h('h2', {}, 'Plugin Penpot'),
-        h('p', {}, h('code', {}, '@sti-ufpe/penpot-plugin'), ' — sincroniza tokens DTCG entre Git e Penpot.'),
+        h('p', {}, h('code', {}, '@ru/penpot-plugin'), ' — sincroniza tokens DTCG entre Git e Penpot.'),
         h('p', {}, 'Instalação no Penpot: ', h('code', {}, 'Menu → Plugins → Add plugin'), ' e cole:'),
         CodeBlock({ language: 'text', code: 'https://design-system-portal-ru3-plugin.pages.dev/manifest.json' }),
+      ),
+
+      h('section', {},
+        h('h2', {}, 'Portal RU3 (produção)'),
+        h('p', {}, 'O tema WordPress que consome este design system: ',
+          h('a', { href: 'https://ru.ufpe.br', target: '_blank' }, 'ru.ufpe.br ↗')),
       ),
 
       h('section', {},
         h('h2', {}, 'Marca-mãe UFPE'),
         h('p', {}, 'O design system institucional da UFPE está em ',
           h('a', { href: 'https://ufpe-design-system.pages.dev', target: '_blank' }, 'ufpe-design-system.pages.dev'),
-          '. Inclui o brasão UFPE oficial usado nos lockups STI.'),
+          '.'),
       ),
     );
   },
