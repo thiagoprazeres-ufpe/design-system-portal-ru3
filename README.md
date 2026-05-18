@@ -1,163 +1,131 @@
-# UFPE Design System
+# Portal RU3 Design System
 
-**Penpot é a implementação.** Este repositório hospeda:
+Design system do **Restaurante Universitário da UFPE** (Portal RU3). Tokens DTCG canônicos, marca, ilustrações e padrões mosaico — fonte da verdade é o tema WordPress oficial.
 
-- **Tokens** canônicos em [W3C DTCG](https://design-tokens.github.io/community-group/format/) (`packages/tokens/dtcg/`).
-- **Plugin Penpot** para sincronizar tokens bidirecionalmente (`packages/penpot-plugin/`).
-- **Portal de docs** estilo zeroheight (`apps/docs/`) consumindo tokens e referenciando a library Penpot.
-- **Scripts CI** para publicar libraries Penpot, snapshots `.penpot` e releases (`penpot/scripts/`).
+> **RU-only.** Identidade visual independente. Brasão UFPE, selos e assinaturas institucionais ficam fora do escopo (uso restrito ao fluxo de autenticação).
 
-> O uso da identidade visual da UFPE é exclusivo para membros da instituição.
+## Produção
 
----
+| Recurso | URL |
+|---|---|
+| Portal de docs | https://thiagoprazeres-ufpe.github.io/design-system-portal-ru3/ |
+| Plugin Penpot (manifest) | https://thiagoprazeres-ufpe.github.io/design-system-portal-ru3/plugin/manifest.json |
+| Repo GitHub | https://github.com/thiagoprazeres-ufpe/design-system-portal-ru3 |
+| Mirror GitLab | https://gitlab.ufpe.br/thiago.prazeres/design-system-portal-ru3 |
+| Portal RU em produção | https://ru.ufpe.br |
+| Tema WordPress | `wp-content/themes/ru-ufpe-theme` |
 
 ## Stack
 
 | Camada | Tecnologia |
 |---|---|
-| Implementação visual | [Penpot](https://design.penpot.app) (Shared Libraries + Components + Variants + Design Tokens nativos) |
-| Tokens canônicos | W3C DTCG (JSON) |
+| Tokens canônicos | W3C DTCG (`ru.tokens.json`) — fonte do tema `ru-ufpe-theme` |
 | Build de tokens | Script vanilla (`packages/tokens/build.js`) → CSS / JS / TS / Penpot JSON |
-| Sincronização | `@ufpe/penpot-plugin` (push/pull) |
+| Implementação visual | [Penpot](https://design.penpot.app) |
+| Sincronização | `@ru/penpot-plugin` |
 | Portal de docs | Vite + `@preact/signals-core` |
-| CI / Releases | GitHub Actions + Cloudflare Pages |
+| CI / Deploy | GitHub Actions + GitHub Pages |
+| Tipografia UI | Geist Variable |
+| Tipografia arte legada | Trebuchet MS (apenas em peças impressas históricas) |
 
 ## Estrutura (monorepo pnpm)
 
 ```
-ufpe-design-system/
+design-system-portal-ru3/
 ├── packages/
-│   ├── tokens/          # W3C DTCG canônico + builds derivados
-│   └── penpot-plugin/   # plugin de sincronização
+│   ├── tokens/             # W3C DTCG — paleta RU completa
+│   └── penpot-plugin/      # @ru/penpot-plugin
 ├── apps/
-│   └── docs/            # portal zeroheight-style
-├── penpot/
-│   ├── files/           # snapshots .penpot (CI nightly)
-│   ├── library.config.json
-│   ├── rpc.js
-│   └── scripts/         # export-snapshot, publish-library, verify-drift
-├── public/brasoes/      # kit oficial UFPE (sigla + extenso)
-├── .github/workflows/   # tokens-build, penpot-sync, penpot-snapshot, release, docs-deploy
+│   └── docs/               # portal zeroheight-style
+├── public/
+│   ├── marca/              # logos RU (horizontal claro/escuro, vertical, mono, institucional)
+│   ├── illustrations/      # frutas, sobremesas, talheres e pratos
+│   └── patterns/           # mosaico canônico + faixa de marca
+├── penpot/                 # rpc + scripts publish/snapshot
+├── .github/workflows/      # deploy-pages.yml
 └── ROADMAP.md
 ```
 
 ## Início rápido
 
 ```bash
-# Setup
 corepack enable && corepack prepare pnpm@9 --activate
 pnpm install
 
-# Tokens
 pnpm tokens:build                    # gera CSS/JS/TS/Penpot JSON
-cat packages/tokens/src/tokens.css
-
-# Docs
-pnpm dev                             # localhost:5173
-
-# Plugin Penpot
-pnpm dev:plugin                      # localhost:5174
-# instale no Penpot: Menu → Plugins → Add → http://localhost:5174/manifest.json
-
-# Penpot CI (requer PENPOT_TOKEN)
-pnpm penpot:snapshot                 # exporta .penpot dos files configurados
-pnpm penpot:publish                  # marca shared + link-file-to-library
-pnpm penpot:verify                   # checa drift entre git e Penpot
+pnpm dev                             # docs em localhost:5173
+pnpm dev:plugin                      # plugin em localhost:5174
 ```
-
-## Brasão
-
-Kit oficial em `public/brasoes/`:
-
-```
-public/brasoes/
-├── sigla/   sigla-rgb.{svg,pdf,ai,eps,png,jpg} + sigla-{preto,branco}.png
-└── extenso/ extenso-rgb.{svg,pdf,ai,eps,png,jpg} + extenso-{preto,branco}.png
-```
-
-SVG é gerado dos PDFs vetoriais via `pdftocairo` (script `scripts/build-svgs.sh`). Para baixar versões individuais, use o portal: `/#resources`.
 
 ## Tokens — consumo
 
-### Via npm (workspace)
-
-```js
-import { tokens } from '@ufpe/tokens';
-tokens.color.brand.primary;  // '#990000'
-tokens.mark.ratio.height;    // 1.5
-```
-
-### Via CSS
+### CSS direto
 
 ```css
-@import '@ufpe/tokens/css';
+@import '@ru/tokens/css';
 
-.botao {
-  background: var(--color-brand-primary);
-  color: var(--color-brand-contrast);
-  font-family: var(--font-family-sans);
-  padding: var(--space-2) var(--space-3);
+.botao-ru {
+  background: var(--ru-color-primary);
+  color: var(--ru-color-primary-content);
+  font-family: var(--ru-font-family-ui);
+  padding: var(--ru-space-3) var(--ru-space-6);
+  border-radius: var(--ru-radius-md);
 }
+
+.cardapio-segunda { border-left: 4px solid var(--ru-color-day-segunda); }
+.cardapio-terca   { border-left: 4px solid var(--ru-color-day-terca); }
 ```
 
-### No Penpot
+### JavaScript / ESM
 
-`Assets → Libraries → +` → adicionar `UFPE / Foundations`.
-Tokens DTCG sincronizados aparecem em `Design tokens`.
+```js
+import { tokens } from '@ru/tokens';
 
-## Sincronização bidirecional
-
-```
-packages/tokens/dtcg/  ── push ──▶  Penpot library
-        ▲                                 │
-        │                                 │
-        └─────── pull (PR) ───────────────┘
-              via @ufpe/penpot-plugin
+tokens.ru.color.brand.amarelo;       // '#EEAB1E'
+tokens.ru.color.day.segunda;         // → amarelo
+tokens.ru.font.family.ui;            // 'Geist Variable, ...'
 ```
 
-Pipeline:
-- **MR de tokens** (`packages/tokens/dtcg/**`) → CI valida + gera build.
-- **Merge em master** → CI deploya docs + plugin para Cloudflare Pages.
-- **Designer edita no Penpot** → plugin "Pull" → MR no GitLab (v0.9).
-- **Tag `v*`** → release Penpot library publish + `tokens.penpot.json` artifact.
+## Paleta RU
 
-## Produção
+5 famílias cromáticas × 3 tons + laranja accent:
 
-| Recurso | URL |
-|---|---|
-| Portal de docs | https://thiagoprazeres-ufpe.github.io/design-system-ufpe |
-| Plugin Penpot (manifest) | https://ufpe-design-system-plugin.pages.dev/manifest.json |
-| Tokens DTCG (raw) | https://thiagoprazeres-ufpe.github.io/design-system-ufpe/tokens.penpot.json _(roadmap)_ |
-| Repo | https://github.com/thiagoprazeres-ufpe/design-system-portal-ru3 |
+- **Amarelo Ovo** — energia, sociabilidade
+- **Verde Alface** — saúde, natureza
+- **Azul Frescor** — refrescância, higiene
+- **Vermelho Melancia** — força, apetite
+- **Cinza Panela** — seriedade, modernidade
+- **Laranja** — destaque/accent
 
-### Cloudflare CI/CD
+Cada cor mapeia a estados semânticos (primary/secondary/accent + success/warning/error/info) e a dias da semana (cardápio).
 
-Pipeline GitLab CI (`.gitlab-ci.yml`) builda + deploya em `master` via `wrangler`.
+## Marca RU
 
-Variáveis necessárias (CI/CD Settings → Variables, marcar **masked** + **protected**):
-- `CLOUDFLARE_API_TOKEN` — token API com permissão `Cloudflare Pages: Edit`. Criar em https://dash.cloudflare.com/profile/api-tokens (template "Edit Cloudflare Pages"). **Rotacionar quando necessário.**
-- `CLOUDFLARE_ACCOUNT_ID` — encontrado no canto direito do dashboard Cloudflare.
-- `PENPOT_API` + `PENPOT_TOKEN` _(opcional, só p/ tags v* fazerem `publish-library`)_.
+6 variantes em `public/marca/`:
 
-### Git LFS
+- `brand-light.svg` — horizontal, texto escuro (fundos claros)
+- `brand-dark.svg` — horizontal, texto branco (fundos escuros)
+- `logo-ru-vertical.svg` — vertical
+- `ru-ufpe.svg` — institucional UFPE + RU
+- `logo-monochrome-horizontal-light.svg` / `vertical-light.svg` — monocromático
 
-PDFs e arquivos `.penpot` são versionados via Git LFS (configurado em `.gitattributes`). Clone com:
+## Deploy
+
+GitHub Actions (`.github/workflows/deploy-pages.yml`) builda e publica em GitHub Pages a cada push em `master`. Sem secrets externos — usa o `GITHUB_TOKEN` automático.
+
+## Git LFS
+
+PDFs, PNGs e arquivos `.penpot` versionados via Git LFS (`.gitattributes`). Clone com:
 
 ```bash
 git lfs install
 git clone https://github.com/thiagoprazeres-ufpe/design-system-portal-ru3.git
 ```
 
-## Penpot — caveats
-
-- A REST API (`/api/rpc/command/*`) é marcada como **internal**. Para uso institucional, planeje self-host (v3.0) com versão pinned.
-- Component/variant authoring é **only-editor** — não há autoria headless.
-- Plugin roda em iframe sandboxed dentro do editor; CI não exercita o plugin.
-
 ## Licença
 
-Uso restrito a membros da Universidade Federal de Pernambuco, conforme determinado pelo Manual de Identidade Visual da UFPE.
+Uso restrito a membros da UFPE / equipe do Restaurante Universitário.
 
 ## Contribuir
 
-Veja [ROADMAP.md](./ROADMAP.md). Mudanças que afetam tokens ou componentes da marca requerem aprovação da Diretoria de Comunicação.
+Veja [ROADMAP.md](./ROADMAP.md) + issues abertas no [GitHub](https://github.com/thiagoprazeres-ufpe/design-system-portal-ru3/issues).
