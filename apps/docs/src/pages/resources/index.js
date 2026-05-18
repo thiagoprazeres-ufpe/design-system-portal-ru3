@@ -64,7 +64,7 @@ export const resourcesIndex = {
         h('h2', {}, 'Plugin Penpot'),
         h('p', {}, h('code', {}, '@ru/penpot-plugin'), ' — sincroniza tokens DTCG entre Git e Penpot.'),
         h('p', {}, 'Instalação no Penpot: ', h('code', {}, 'Menu → Plugins → Add plugin'), ' e cole:'),
-        CodeBlock({ language: 'text', code: 'https://design-system-portal-ru3-plugin.pages.dev/manifest.json' }),
+        CodeBlock({ language: 'text', code: 'https://thiagoprazeres-ufpe.github.io/design-system-portal-ru3/plugin/manifest.json' }),
       ),
 
       h('section', {},
@@ -76,7 +76,7 @@ export const resourcesIndex = {
       h('section', {},
         h('h2', {}, 'Marca-mãe UFPE'),
         h('p', {}, 'O design system institucional da UFPE está em ',
-          h('a', { href: 'https://ufpe-design-system.pages.dev', target: '_blank' }, 'ufpe-design-system.pages.dev'),
+          h('a', { href: 'https://thiagoprazeres-ufpe.github.io/design-system-ufpe', target: '_blank' }, 'ufpe-design-system.pages.dev'),
           '.'),
       ),
     );

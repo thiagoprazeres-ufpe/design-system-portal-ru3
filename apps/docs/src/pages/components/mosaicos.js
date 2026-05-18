@@ -128,7 +128,7 @@ export const mosaicosPage = {
         ),
         h('div', { class: 'callout' },
           h('p', {}, 'Mosaicos canônicos estão em ', h('code', {}, 'public/patterns/'), '. Para novos mosaicos, abra MR no ',
-            h('a', { href: 'https://gitlab.ufpe.br/thiago.prazeres/design-system-portal-ru3', target: '_blank' }, 'GitLab'), '.')),
+            h('a', { href: 'https://github.com/thiagoprazeres-ufpe/design-system-portal-ru3', target: '_blank' }, 'GitLab'), '.')),
       ),
     );
   },

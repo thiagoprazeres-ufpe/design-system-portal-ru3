@@ -1,8 +1,11 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'node:path';
 
+const base = process.env.BASE ?? (process.env.NODE_ENV === 'production' ? '/design-system-portal-ru3/' : '/');
+
 export default defineConfig({
   root: '.',
+  base,
   publicDir: resolve(__dirname, '../../public'),
   resolve: {
     alias: {

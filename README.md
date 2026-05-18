@@ -125,10 +125,10 @@ Pipeline:
 
 | Recurso | URL |
 |---|---|
-| Portal de docs | https://ufpe-design-system.pages.dev |
+| Portal de docs | https://thiagoprazeres-ufpe.github.io/design-system-ufpe |
 | Plugin Penpot (manifest) | https://ufpe-design-system-plugin.pages.dev/manifest.json |
-| Tokens DTCG (raw) | https://ufpe-design-system.pages.dev/tokens.penpot.json _(roadmap)_ |
-| Repo | https://gitlab.ufpe.br/thiago.prazeres/design-system-portal-ru3 |
+| Tokens DTCG (raw) | https://thiagoprazeres-ufpe.github.io/design-system-ufpe/tokens.penpot.json _(roadmap)_ |
+| Repo | https://github.com/thiagoprazeres-ufpe/design-system-portal-ru3 |
 
 ### Cloudflare CI/CD
 
@@ -145,7 +145,7 @@ PDFs e arquivos `.penpot` são versionados via Git LFS (configurado em `.gitattr
 
 ```bash
 git lfs install
-git clone https://gitlab.ufpe.br/thiago.prazeres/design-system-portal-ru3.git
+git clone https://github.com/thiagoprazeres-ufpe/design-system-portal-ru3.git
 ```
 
 ## Penpot — caveats
