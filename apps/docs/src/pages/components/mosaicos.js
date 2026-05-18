@@ -34,18 +34,18 @@ export const mosaicosPage = {
         h('h2', {}, 'Mosaico canônico'),
         h('p', {}, 'A composição principal — base de todas as variações. Use em fundos amplos, hero sections e painéis decorativos.'),
         h('div', { class: 'preview-box', style: { padding: 0, background: 'transparent', overflow: 'hidden', minHeight: '0' } },
-          h('img', { src: '/patterns/mosaic.svg', alt: 'Mosaico canônico', style: { width: '100%' } })
+          h('img', { src: 'patterns/mosaic.svg', alt: 'Mosaico canônico', style: { width: '100%' } })
         ),
-        CodeBlock({ language: 'html', code: '<div class="hero-ru" style="background:url(/patterns/mosaic.svg) center/cover">…</div>' }),
+        CodeBlock({ language: 'html', code: '<div class="hero-ru" style="background:url(patterns/mosaic.svg) center/cover">…</div>' }),
       ),
 
       h('section', {},
         h('h2', {}, 'Faixa de marca'),
         h('p', {}, 'Versão horizontal — para headers, footers e elementos lineares de sinalização externa.'),
         h('div', { class: 'preview-box', style: { padding: 0, background: 'transparent', overflow: 'hidden', minHeight: '0' } },
-          h('img', { src: '/patterns/ru-brand-strip.svg', alt: 'Faixa RU', style: { width: '100%' } })
+          h('img', { src: 'patterns/ru-brand-strip.svg', alt: 'Faixa RU', style: { width: '100%' } })
         ),
-        CodeBlock({ language: 'css', code: '.header-ru {\n  background: url("/patterns/ru-brand-strip.svg") repeat-x bottom / auto 64px,\n              var(--ru-color-surface-raised);\n}' }),
+        CodeBlock({ language: 'css', code: '.header-ru {\n  background: url("patterns/ru-brand-strip.svg") repeat-x bottom / auto 64px,\n              var(--ru-color-surface-raised);\n}' }),
       ),
 
       h('section', {},
@@ -54,21 +54,21 @@ export const mosaicosPage = {
         h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))', gap: 'var(--ru-space-3)' } },
           h('div', {},
             h('div', { class: 'preview-box', style: { background: 'var(--ru-color-surface-raised)', padding: 'var(--ru-space-4)' } },
-              h('img', { src: '/illustrations/frutas.svg', alt: 'Frutas', style: { maxWidth: '200px' } })
+              h('img', { src: 'illustrations/frutas.svg', alt: 'Frutas', style: { maxWidth: '200px' } })
             ),
             h('div', { style: { fontWeight: 'var(--ru-font-weight-semibold)', marginTop: 'var(--ru-space-1)' } }, 'Frutas'),
             h('code', { style: { fontSize: 'var(--ru-font-size-xs)' } }, '/illustrations/frutas.svg'),
           ),
           h('div', {},
             h('div', { class: 'preview-box', style: { background: 'var(--ru-color-surface-raised)', padding: 'var(--ru-space-4)' } },
-              h('img', { src: '/illustrations/desserts.svg', alt: 'Sobremesas', style: { maxWidth: '200px' } })
+              h('img', { src: 'illustrations/desserts.svg', alt: 'Sobremesas', style: { maxWidth: '200px' } })
             ),
             h('div', { style: { fontWeight: 'var(--ru-font-weight-semibold)', marginTop: 'var(--ru-space-1)' } }, 'Sobremesas'),
             h('code', { style: { fontSize: 'var(--ru-font-size-xs)' } }, '/illustrations/desserts.svg'),
           ),
           h('div', {},
             h('div', { class: 'preview-box', style: { background: 'var(--ru-color-surface-raised)', padding: 'var(--ru-space-4)' } },
-              h('img', { src: '/illustrations/cutlery-plates.svg', alt: 'Talheres e pratos', style: { maxWidth: '200px' } })
+              h('img', { src: 'illustrations/cutlery-plates.svg', alt: 'Talheres e pratos', style: { maxWidth: '200px' } })
             ),
             h('div', { style: { fontWeight: 'var(--ru-font-weight-semibold)', marginTop: 'var(--ru-space-1)' } }, 'Talheres e pratos'),
             h('code', { style: { fontSize: 'var(--ru-font-size-xs)' } }, '/illustrations/cutlery-plates.svg'),

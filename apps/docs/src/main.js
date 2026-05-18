@@ -11,7 +11,7 @@ const sidebar = document.createElement('aside');
 sidebar.className = 'sidebar';
 sidebar.innerHTML = `
   <div class="brand">
-    <img src="/marca/brand-dark.svg" alt="RU" />
+    <img src="marca/brand-dark.svg" alt="RU" />
     <div>
       <strong>RU · UFPE</strong>
       <small>Design System</small>

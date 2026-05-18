@@ -11,7 +11,7 @@ export const areaProtecao = {
       }),
       h('section', {},
         h('div', { style: { display: 'inline-block', border: '1px dashed var(--color-text-brand)', padding: '40px', background: 'var(--color-surface-default)' } },
-          h('img', { src: '/marca/brand-dark.svg', alt: 'RU UFPE com área de proteção', style: { maxWidth: '280px' } })
+          h('img', { src: 'marca/brand-dark.svg', alt: 'RU UFPE com área de proteção', style: { maxWidth: '280px' } })
         ),
         h('p', {}, 'Mínimo: altura da chama do brasão UFPE ao redor de todo o lockup.'),
       ),

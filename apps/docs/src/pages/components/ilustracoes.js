@@ -3,9 +3,9 @@ import { PageHeader } from '../../components/PageHeader.js';
 import { CodeBlock } from '../../components/CodeBlock.js';
 
 const ILLUSTRATIONS = [
-  { id: 'frutas',         label: 'Frutas',         src: '/illustrations/frutas.svg' },
-  { id: 'desserts',       label: 'Sobremesas',     src: '/illustrations/desserts.svg' },
-  { id: 'cutlery-plates', label: 'Talheres e pratos', src: '/illustrations/cutlery-plates.svg' },
+  { id: 'frutas',         label: 'Frutas',         src: 'illustrations/frutas.svg' },
+  { id: 'desserts',       label: 'Sobremesas',     src: 'illustrations/desserts.svg' },
+  { id: 'cutlery-plates', label: 'Talheres e pratos', src: 'illustrations/cutlery-plates.svg' },
 ];
 
 export const ilustracoesPage = {
