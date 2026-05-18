@@ -1,6 +1,6 @@
 {
   "name": "design-system-portal-ru3",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "type": "module",
   "description": "Design System do Portal RU3 (Restaurante Universitário UFPE) — tokens DTCG canônicos, plugin Penpot e portal de docs.",

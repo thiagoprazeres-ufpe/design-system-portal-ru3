@@ -4,16 +4,26 @@ import buildInfo from '../build-info.js';
 
 const ENTRIES = [
   {
+    version: '1.0.1',
+    date: '2026-05-18',
+    notes: [
+      ['fix',  'Página Logo agora usa SVGs oficiais RU (brand-*.svg) em vez de logo-sti-* leftover.'],
+      ['fix',  'Guidelines (construção, área de proteção, usos incorretos): referências sti-rgb.svg → brand-dark.svg.'],
+      ['fix',  'Resources: tabela de downloads reescrita para a marca RU (logo + ilustrações + padrões).'],
+      ['fix',  'Foundations (colors/typography/spacing): consumindo tokens.ru.* corretamente (tela em branco resolvida).'],
+    ],
+  },
+  {
     version: '1.0.0',
     date: '2026-05-17',
     badge: 'release',
     notes: [
-      ['feat', 'Marca STI publicada — lockup oficial (brasão UFPE + "STi" + descrição) em SVG/PNG colorido, preto e branco.'],
-      ['feat', 'Paleta DTCG completa (62 tokens): 8 cores cromáticas, 7 diretorias + escala de cinza + semânticos.'],
-      ['feat', 'Componente Avatares — preview SVG para diretorias (com badge UFPE) e coordenações (com cunha laranja).'],
-      ['feat', 'Página Diretorias — grid com cor + token DTCG por unidade.'],
+      ['feat', 'Marca RU publicada — 6 variantes SVG (horizontal escuro/claro, vertical, institucional UFPE+RU, mono horizontal/vertical).'],
+      ['feat', 'Tokens DTCG (88 tokens): 5 famílias × 3 tons + laranja accent + semânticos + cores por dia da semana.'],
+      ['feat', 'Ilustrações modulares: frutas, sobremesas, talheres e pratos.'],
+      ['feat', 'Padrões: mosaico canônico + faixa de marca.'],
       ['feat', 'Portal de docs zeroheight-style (overview, foundations, components, guidelines, resources, changelog).'],
-      ['feat', 'Plugin Penpot @sti-ufpe/penpot-plugin (push tokens DTCG).'],
+      ['feat', 'Plugin Penpot @ru/penpot-plugin (push tokens DTCG).'],
       ['feat', 'Deploy Cloudflare Pages: docs + plugin.'],
       ['feat', 'GitLab CI (build → deploy → release on tag).'],
       ['feat', 'Footer com versão + SHA + link clicável para commit/tag no GitLab.'],

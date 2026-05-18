@@ -1,6 +1,6 @@
 {
   "name": "@ru/penpot-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "type": "module",
   "description": "Plugin Penpot — sincroniza tokens DTCG RU UFPE entre Git e Penpot.",

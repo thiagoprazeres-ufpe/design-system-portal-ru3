@@ -1,6 +1,6 @@
 {
   "name": "@ru/tokens",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "RU UFPE Design Tokens — W3C DTCG (canônico) + CSS/JS/TS builds. RU-only.",
   "type": "module",
   "main": "./src/tokens.js",
