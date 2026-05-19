@@ -133,3 +133,52 @@ th { font-weight: var(--ru-font-weight-semibold); color: var(--ru-color-brand-ci
 .dont-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(180px,1fr)); gap: var(--ru-space-3); }
 .dont-card { border: 1px solid var(--ru-color-border-subtle); padding: var(--ru-space-3); border-radius: var(--ru-radius-md); }
 .dont-card .label { font-size: var(--ru-font-size-xs); color: var(--ru-color-brand-vermelhoEscuro); margin-top: 8px; }
+
+/* ============================================================ */
+/* Responsive — mobile drawer sidebar                            */
+/* ============================================================ */
+.menu-toggle {
+  display: none;
+  position: fixed; top: 12px; left: 12px;
+  width: 44px; height: 44px;
+  background: var(--ru-color-brand-cinzaEscuro);
+  color: var(--ru-color-text-inverse);
+  border: 0; border-radius: var(--ru-radius-md);
+  align-items: center; justify-content: center;
+  cursor: pointer; z-index: 101;
+  box-shadow: var(--ru-shadow-md, 0 2px 8px rgba(0,0,0,.25));
+}
+.menu-toggle:focus-visible { outline: 2px solid var(--ru-color-brand-amarelo); outline-offset: 2px; }
+.menu-toggle svg { width: 22px; height: 22px; fill: currentColor; }
+
+.nav-backdrop {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 99;
+  opacity: 0; transition: opacity .2s;
+}
+body.nav-open .nav-backdrop { display: block; opacity: 1; }
+
+@media (max-width: 900px) {
+  .app { grid-template-columns: 1fr; }
+  .sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0;
+    width: 280px; max-width: 85vw;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform .22s ease;
+    z-index: 100;
+    box-shadow: 4px 0 20px rgba(0,0,0,.2);
+  }
+  body.nav-open .sidebar { transform: translateX(0); }
+  .menu-toggle { display: inline-flex; }
+  .main { padding: var(--ru-space-12) var(--ru-space-3) var(--ru-space-6); }
+}
+
+@media (max-width: 600px) {
+  .main { padding: 64px var(--ru-space-2) var(--ru-space-4); }
+  h1 { font-size: var(--ru-font-size-2xl); }
+  h2 { font-size: var(--ru-font-size-xl); }
+  table { display: block; overflow-x: auto; }
+}
